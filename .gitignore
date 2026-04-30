@@ -20,4 +20,3 @@ node_modules
 
 # Generated exports (poem images)
 public/noir-poem-*.png
-public/*-*.png
