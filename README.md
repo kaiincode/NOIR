@@ -16,9 +16,7 @@
 
 NOIR treats poetry like an instrument: you bring a spark, it gives you form, rhythm, and a way back in.
 
-Write from a prompt. Choose a literary form. Tune the mood. Revise without losing the voice.
-
-Export a clean, themed PNG for sharing.
+Write from a prompt or a reference image. Choose a literary form. Tune the mood. Revise without losing the voice. Edit the result, compare versions, then export a clean themed PNG for sharing.
 
 ## Features
 
@@ -30,14 +28,18 @@ Language and form:
 Controls and workflow:
 
 - mood, length, must-include, avoid
+- optional image import for visual inspiration
+- editable poem output and generated version history
 - revisions: darker, softer, shorter, more imagery, re-voice
-- export: copy text or save as a themed PNG (auto two-column layout for long poems)
+- export: copy text or save a themed PNG in portrait, story, or square format
 
 ## Tech
 
-- Next.js (App Router)
+- Next.js App Router
+- React and TypeScript
+- Tailwind CSS
 - `next-themes` for light/dark
-- OpenRouter: `openai/gpt-oss-20b:free`
+- OpenRouter: `nex-agi/nex-n2-pro:free`
 
 ## Local development
 
@@ -63,4 +65,3 @@ Open `http://localhost:3000`.
 ## Notes
 
 - Do not commit `.env`. This repository ignores it via `.gitignore`.
-
