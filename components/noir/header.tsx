@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { ThemeToggle } from '@/components/theme-toggle'
 import { NoirLogo } from '@/components/noir/noir-logo'
 
@@ -8,7 +10,9 @@ export function NoirHeader() {
         <div />
 
         <div className="flex justify-center">
-          <NoirLogo size={84} />
+          <Link href="/" aria-label="Back to NOIR home" className="inline-flex">
+            <NoirLogo size={84} />
+          </Link>
         </div>
 
         <div className="flex justify-end">
