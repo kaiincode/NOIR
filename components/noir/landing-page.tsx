@@ -4,13 +4,12 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { type MouseEvent, useEffect, useRef } from 'react'
 
-import { NoirLogo } from '@/components/noir/noir-logo'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 const thresholds = [
   ['prompt', 'a first line, a private memory, a visual spark'],
   ['image', 'color, silence, weather, light on the edge of things'],
-  ['form', 'free verse, lục bát, thất ngôn, sonnet, haiku'],
+  ['form', 'free verse, luc bat, that ngon, sonnet, haiku'],
 ]
 
 const sequence = [
@@ -32,20 +31,18 @@ const sequence = [
 ]
 
 const versePairs = [
-  ['Một ảnh cũ không nói hết mùa mưa.', 'An old image keeps the rain unfinished.'],
-  ['Tên gọi nằm im trong vùng tối.', 'A name waits inside the dark.'],
-  ['Ký ức nghiêng đi, câu thơ tự sáng.', 'Memory tilts, and the line begins to glow.'],
+  ['An old photograph keeps the weather unfinished.', 'A line waits where the light thins out.'],
+  ['Memory enters as pressure, not decoration.', 'The draft moves until the image breathes.'],
+  ['Form is the room the poem agrees to inhabit.', 'Revision turns noise into artifact.'],
 ]
 
-const forms = ['free verse', 'lục bát', 'thất ngôn', 'sonnet', 'haiku', 'cinquain']
+const forms = ['free verse', 'luc bat', 'that ngon', 'sonnet', 'haiku', 'cinquain']
 
 export function LandingPage() {
   const rootRef = useRef<HTMLDivElement | null>(null)
-  const heroImageRef = useRef<HTMLDivElement | null>(null)
-  const heroTitleRef = useRef<HTMLHeadingElement | null>(null)
-  const heroCopyRef = useRef<HTMLParagraphElement | null>(null)
-  const heroRuleRef = useRef<HTMLDivElement | null>(null)
-  const heroCtaRef = useRef<HTMLAnchorElement | null>(null)
+  const heroWordRef = useRef<HTMLHeadingElement | null>(null)
+  const heroFillRef = useRef<HTMLSpanElement | null>(null)
+  const heroMetaRef = useRef<HTMLDivElement | null>(null)
   const marqueeRef = useRef<HTMLDivElement | null>(null)
   const thresholdRefs = useRef<Array<HTMLDivElement | null>>([])
   const sequenceRefs = useRef<Array<HTMLElement | null>>([])
@@ -73,33 +70,34 @@ export function LandingPage() {
       gsap.registerPlugin(ScrollTrigger)
 
       const context = gsap.context(() => {
-        const heroLetters = heroTitleRef.current
-          ? Array.from(heroTitleRef.current.querySelectorAll('[data-hero-letter]'))
-          : []
-
-        gsap.set(heroTitleRef.current, { autoAlpha: 1 })
-        gsap.set(heroLetters, { yPercent: 112, rotate: 4 })
-        gsap.set([heroCopyRef.current, heroCtaRef.current], { autoAlpha: 0, y: 28 })
-        gsap.set(heroRuleRef.current, { scaleX: 0, transformOrigin: 'left center' })
-        gsap.set(heroImageRef.current, { scale: 1.14 })
+        gsap.set(heroMetaRef.current, { autoAlpha: 0, y: -18 })
+        gsap.set(heroWordRef.current, {
+          autoAlpha: 0,
+          y: 34,
+          scale: 0.96,
+        })
+        gsap.set(heroFillRef.current, {
+          clipPath: 'inset(0 100% 0 0)',
+          backgroundPosition: '34% 50%',
+        })
         gsap.set([thresholdRefs.current, sequenceRefs.current, verseRefs.current, finalRef.current], {
           autoAlpha: 0,
           y: 54,
         })
 
-        const hero = gsap.timeline({ defaults: { ease: 'power3.out' } })
+        const hero = gsap.timeline({ defaults: { ease: 'expo.out' } })
         hero
-          .to(heroImageRef.current, { scale: 1, duration: 3.2, ease: 'power2.out' }, 0)
-          .to(heroLetters, { yPercent: 0, rotate: 0, duration: 1.05, stagger: 0.07 }, 0.16)
-          .to(heroRuleRef.current, { scaleX: 1, duration: 0.9 }, 0.72)
-          .to(heroCopyRef.current, { autoAlpha: 1, y: 0, duration: 0.78 }, 0.82)
-          .to(heroCtaRef.current, { autoAlpha: 1, y: 0, duration: 0.72 }, 1.04)
+          .to(heroMetaRef.current, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.05)
+          .to(heroWordRef.current, { autoAlpha: 1, y: 0, scale: 1, duration: 1.15 }, 0.16)
+          .to(heroFillRef.current, { clipPath: 'inset(0 0% 0 0)', duration: 1.25, ease: 'power4.inOut' }, 0.42)
+          .to(heroFillRef.current, { backgroundPosition: '74% 50%', duration: 5.4, ease: 'sine.inOut' }, 0.9)
 
-        gsap.to(heroImageRef.current, {
-          yPercent: 12,
+        gsap.to(heroWordRef.current, {
+          yPercent: -10,
+          scale: 0.92,
           ease: 'none',
           scrollTrigger: {
-            trigger: heroImageRef.current,
+            trigger: heroWordRef.current,
             start: 'top top',
             end: 'bottom top',
             scrub: true,
@@ -245,53 +243,41 @@ export function LandingPage() {
 
   return (
     <main ref={rootRef} className="overflow-hidden bg-background text-foreground">
-      <section className="relative min-h-svh overflow-hidden">
-        <div
-          ref={heroImageRef}
-          className="absolute -inset-x-px -top-[12vh] -bottom-[12vh] bg-cover bg-center"
-          style={{ backgroundImage: "url('/background.png')" }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.45)_52%,rgba(255,255,255,0.95)_100%)] dark:bg-[linear-gradient(180deg,rgba(0,0,0,0.16)_0%,rgba(0,0,0,0.48)_52%,rgba(0,0,0,0.96)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,0.18),transparent_62%)] dark:bg-[radial-gradient(ellipse_at_bottom_left,rgba(255,255,255,0.08),transparent_62%)]" />
-
-        <header className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-[clamp(18px,4vw,54px)] py-6 text-sm">
-          <Link href="/" aria-label="NOIR home" className="inline-flex">
-            <NoirLogo size={58} />
+      <section className="relative min-h-svh overflow-hidden bg-background text-foreground">
+        <header
+          ref={heroMetaRef}
+          className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-[clamp(18px,4vw,54px)] py-6 text-sm"
+        >
+          <Link href="/" aria-label="NOIR home" className="font-black tracking-[-0.04em]">
+            NOIR
           </Link>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            <Link
+              href="/write"
+              className="hidden items-center gap-2 text-sm font-semibold tracking-[-0.03em] transition hover:opacity-60 sm:inline-flex"
+            >
+              Write
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            <ThemeToggle />
+          </div>
         </header>
 
-        <div className="relative z-10 flex min-h-svh flex-col justify-end px-[clamp(18px,5vw,76px)] pb-[clamp(36px,8vw,96px)]">
+        <div className="relative z-20 flex min-h-svh items-center justify-center overflow-hidden px-[clamp(18px,5vw,76px)] pt-12">
           <h1
-            ref={heroTitleRef}
-            className="flex max-w-fit select-none overflow-hidden text-[clamp(92px,22vw,340px)] font-black leading-[0.72] tracking-[-0.08em]"
+            ref={heroWordRef}
+            className="select-none text-center text-[clamp(92px,25vw,390px)] font-black uppercase leading-none tracking-[0.025em]"
             aria-label="NOIR"
           >
-            {['N', 'O', 'I', 'R'].map((letter) => (
-              <span key={letter} className="block overflow-hidden pb-[0.06em]">
-                <span data-hero-letter className="block">
-                  {letter}
-                </span>
-              </span>
-            ))}
+            <span
+              ref={heroFillRef}
+              aria-hidden="true"
+              className="block px-[0.055em] bg-cover bg-center bg-clip-text text-transparent will-change-transform"
+              style={{ backgroundImage: "url('/background.png')" }}
+            >
+              NOIR
+            </span>
           </h1>
-          <div ref={heroRuleRef} className="mt-7 h-px w-full max-w-[760px] bg-foreground/34" />
-          <p
-            ref={heroCopyRef}
-            className="mt-7 max-w-[680px] font-serif text-[clamp(30px,4.7vw,78px)] leading-[0.92] tracking-[-0.04em]"
-          >
-            Poetry from image, memory, and form.
-          </p>
-          <Link
-            ref={heroCtaRef}
-            href="/write"
-            onMouseMove={moveMagnetic}
-            onMouseLeave={resetMagnetic}
-            className="mt-8 inline-flex h-12 w-fit items-center gap-3 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition hover:opacity-90"
-          >
-            Try NOIR
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
         </div>
       </section>
 
@@ -375,17 +361,17 @@ export function LandingPage() {
       <section className="border-y border-border px-[clamp(18px,5vw,76px)] py-[clamp(80px,14vw,180px)]">
         <div className="mb-12 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Bilingual room</div>
         <div className="space-y-12">
-          {versePairs.map(([vi, en], index) => (
+          {versePairs.map(([left, right], index) => (
             <div
-              key={vi}
+              key={left}
               ref={(node) => {
                 verseRefs.current[index] = node
               }}
               className="grid gap-5 border-t border-border pt-8 md:grid-cols-2 md:gap-12"
             >
-              <p className="font-serif text-[clamp(32px,5vw,78px)] leading-[0.96] tracking-[-0.04em]">{vi}</p>
+              <p className="font-serif text-[clamp(32px,5vw,78px)] leading-[0.96] tracking-[-0.04em]">{left}</p>
               <p className="font-serif text-[clamp(32px,5vw,78px)] leading-[0.96] tracking-[-0.04em] text-muted-foreground">
-                {en}
+                {right}
               </p>
             </div>
           ))}
